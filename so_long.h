@@ -10,20 +10,17 @@
 # include "./utils/libft/libft.h"
 # include "./utils/gnl/get_next_line.h"
 
-typedef  struct  	s_vector
-{
-	int  	x;
-	int  	y;
-} t_vector;
+
 
 typedef  struct  	s_game
 {
 	int  	qnt_collect;
+	int  	pos_col;
+	int  	pos_line;
 } t_game;
 
 typedef struct	s_image {
 	void		*reference;
-	t_vector	size;
 	char		*pixels;
 	int			bits_per_pixel;
 	int			line_size;
@@ -44,9 +41,11 @@ typedef struct	s_program {
 	void		*mlx;
 	void		*window;
 	int			start;
+	int  	x;
+	int  	y;
 	t_image		sprite;
-	t_vector	sprite_position;
 	t_map		map_program;
+	t_game		game;
 
 }				t_program;
 
