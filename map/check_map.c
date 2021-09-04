@@ -1,14 +1,16 @@
 # include "../so_long.h"
 
-int more_one(t_map *map, int fd1, char *argv)
+int more_one( char *argv)
 {
 	int size;
 	char buffer;
-	int count = 0;
+	int count;
+	int  fd1;
 
 	fd1 = open(argv, O_RDONLY);
 		if (!fd1)
 			return 0;
+	count = 0;
 	while (true)
 	{
 		size = read(fd1, &buffer, 1);
@@ -52,11 +54,10 @@ int cont_col(t_map *map, int fd1, char *argv)
 	return 1;
 }
 
-int cont_line(t_map *map, int fd1, char *argv)
+int cont_line(t_map *map, int fd1)
 {
 	int size;
 	char buffer;
-	int count = 0;
 
 	while (true)
 	{
@@ -81,16 +82,14 @@ int cont_line(t_map *map, int fd1, char *argv)
 	return 1;
 }
 
-int check_map_struct(t_map *map, int argc, char *argv)
+int check_map_struct(t_map *map,char *argv)
 {
-	char *line;
 	int fd1;
-	int count_line;
 
 	fd1 = open(argv, O_RDONLY);
 	if (!fd1)
 		return 0;
-	if (!cont_line(map, fd1, argv))
+	if (!cont_line(map, fd1))
 		return 0;
 	if (!cont_col(map, fd1, argv))
 		return 0;
@@ -115,11 +114,12 @@ int check_map_valid(t_map *map, int argc, char **argv)
 		print_s("Será utilizado apenas o primeiro arquivo\n");
 	if (!check_extension(argv[1], ".ber"))
 		return 0;
-	if (!check_map_struct(map, argc, argv[1]))
+	if (!check_map_struct(map, argv[1]))
 		return 0;
-	if (!more_one(map, argc, argv[1]))
+	if (!more_one(argv[1]))
 		return 0;
-	map->map_all = check_number_map(map, argc, argv[1]);
+	map->map_all = check_number_map(map, argv[1]);
+	//map->map_bkp = check_number_map(map, argv[1]);
 	if (map->map_all == 0)
 		return 0;
 

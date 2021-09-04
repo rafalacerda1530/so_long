@@ -17,43 +17,48 @@ typedef  struct  	s_game
 	int  	qnt_collect;
 	int  	pos_col;
 	int  	pos_line;
+	int		qnt_move;
+	char	move_up;
+	char	move_down;
+	char	move_left;
+	char	move_right;
 } t_game;
 
-typedef struct	s_image {
-	void		*reference;
-	char		*pixels;
-	int			bits_per_pixel;
-	int			line_size;
-	int			endian;
-}				t_image;
+typedef struct	s_program {
+	int			start;
+	int  		x;
+	int  		y;
+	t_game		game;
+	char 		**argv;
+
+}				t_program;
 
 typedef struct s_map
 {
+	void		*mlx;
+	void		*window;
 	int valid_map;
 	int count_lines;
 	int count_col;
 	int count_arq;
 	char **map_all;
+	char **map_bkp;
 	t_game game;
+	t_program *program;
+
 }	t_map;
 
-typedef struct	s_program {
-	void		*mlx;
-	void		*window;
-	int			start;
-	int  	x;
-	int  	y;
-	t_image		sprite;
-	t_map		map_program;
-	t_game		game;
-
-}				t_program;
-
 int check_map_valid(t_map *map, int argc, char **argv);
-int init_game(t_program *program, t_map *map);
+int init_game(t_map *map);
 void print_s(char *string);
 int	check_extension(char *str, char *extension);
-char **check_number_map(t_map *map, int argc, char *argv);
-int print_map(t_map *map, t_program *program);
-int print_sprite(t_map *map, t_program *program, int col, int line,char *path);
+char **check_number_map(t_map *map, char *argv);
+int print_map(t_map *map);
+int print_sprite(t_map *map, int col, int line,char *path);
+int move_up(t_map *map);
+int move_left(t_map *map);
+int move_right(t_map *map);
+int move_down(t_map *map);
+void zero_move(t_map *map);
+void destroy_map(t_map *map);
 #endif

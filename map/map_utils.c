@@ -63,10 +63,9 @@ int check_all_map(t_map *map, char **map_var)
 	return 1;	
 }
 
-char **check_number_map(t_map *map, int argc, char *argv)
+char **check_number_map(t_map *map, char *argv)
 {
 	char **map_var;
-	char *line;
 	int fd1;
 	int i = 0;
 
