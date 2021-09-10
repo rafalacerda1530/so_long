@@ -58,7 +58,7 @@ int cont_line(t_map *map, int fd1)
 {
 	int size;
 	char buffer;
-
+	map->count_lines++;
 	while (true)
 	{
 		size = read(fd1, &buffer, 1);
@@ -68,7 +68,7 @@ int cont_line(t_map *map, int fd1)
 		{
 			map->count_arq++;
 			if (buffer == 'C')
-				map->game.qnt_collect++;
+				map->game->qnt_collect++;
 		}
 		if (size == 0)
 			break;
@@ -94,7 +94,7 @@ int check_map_struct(t_map *map,char *argv)
 	if (!cont_col(map, fd1, argv))
 		return 0;
 	close(fd1);
-	if (map->count_arq / map->count_col != map->count_lines)
+	if (map->count_arq  / map->count_col != map->count_lines)
 	{
 		print_s("Linhas e colunas incorretos\n");
 		return 0;
@@ -119,7 +119,6 @@ int check_map_valid(t_map *map, int argc, char **argv)
 	if (!more_one(argv[1]))
 		return 0;
 	map->map_all = check_number_map(map, argv[1]);
-	//map->map_bkp = check_number_map(map, argv[1]);
 	if (map->map_all == 0)
 		return 0;
 

@@ -1,12 +1,12 @@
 #include "../so_long.h"
 
-void free_map(t_map *map, char **map_var)
+void free_map(t_map *map)
 {
-	int i = 0;
+	int i;
 	i = 0;
-	while (i <= map->count_lines)
-		free(map_var[i++]);
-	free(map_var);
+	while (i < map->count_lines)
+		free(map->map_all[i++]);
+	free(map->map_all);
 }
 
 int check_wall(t_map *map, char **map_var)
@@ -14,18 +14,18 @@ int check_wall(t_map *map, char **map_var)
 	int cont_line = 0;
 	int cont_col = 0;
 
-	while (cont_line < map->count_lines - 1)
+	while (cont_line < map->count_lines)
 	{
 		if (map_var[cont_line][0] != '1' || map_var[cont_line][map->count_col - 1] != '1')
 		{
 			print_s("O mapa deve possuir paredes em volta\n");
-			free_map(map, map_var);
+			free_map(map);
 			return 0;
 		}
-		if (map_var[0][cont_col] != '1' || map_var[map->count_lines - 1][cont_col] != '1')
+		else if (map_var[0][cont_col] != '1' || map_var[map->count_lines - 1][cont_col] != '1')
 		{
 			print_s("O mapa deve possuir paredes em volta\n");
-			free_map(map, map_var);
+			free_map(map);
 			return 0;
 		}
 		if (cont_col == map->count_col - 1)
@@ -50,7 +50,7 @@ int check_all_map(t_map *map, char **map_var)
 		(map_var[cont_line][cont_col] != 'E'))
 		{
 			print_s("Mapa Inválido\n");
-			free_map(map, map_var);
+			free_map(map);
 			return 0;
 		}
 		if (cont_col == map->count_col - 1)
@@ -69,13 +69,13 @@ char **check_number_map(t_map *map, char *argv)
 	int fd1;
 	int i = 0;
 
-	map_var =  malloc(sizeof(char *) * map->count_lines + 8);
+	map_var =  malloc(sizeof(char *) * map->count_lines);
 	if (!map_var)
 		return 0;
 	fd1 = open(argv, O_RDONLY);
 	if (!fd1)
 	{
-		free_map(map, map_var);
+		free_map(map);
 		return 0;
 	}
 	while (get_next_line(fd1, &map_var[i++]))

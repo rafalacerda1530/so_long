@@ -10,8 +10,6 @@
 # include "./utils/libft/libft.h"
 # include "./utils/gnl/get_next_line.h"
 
-
-
 typedef  struct  	s_game
 {
 	int  	qnt_collect;
@@ -29,7 +27,6 @@ typedef struct	s_program {
 	int  		x;
 	int  		y;
 	t_game		game;
-	char 		**argv;
 
 }				t_program;
 
@@ -37,13 +34,13 @@ typedef struct s_map
 {
 	void		*mlx;
 	void		*window;
-	int valid_map;
-	int count_lines;
-	int count_col;
-	int count_arq;
+	void		*image;
+	int		valid_map;
+	int		count_lines;
+	int		count_col;
+	int		count_arq;
 	char **map_all;
-	char **map_bkp;
-	t_game game;
+	t_game *game;
 	t_program *program;
 
 }	t_map;
@@ -60,5 +57,7 @@ int move_left(t_map *map);
 int move_right(t_map *map);
 int move_down(t_map *map);
 void zero_move(t_map *map);
-void destroy_map(t_map *map);
+void init_struct(t_program *program, t_map *map, t_game *game);
+void free_map(t_map *map);
+int endgame(t_map *map);
 #endif
