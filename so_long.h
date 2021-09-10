@@ -59,5 +59,5 @@ int move_down(t_map *map);
 void zero_move(t_map *map);
 void init_struct(t_program *program, t_map *map, t_game *game);
 void free_map(t_map *map);
-int endgame(t_map *map);
+int endgame(void *banana);
 #endif
