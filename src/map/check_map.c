@@ -1,4 +1,4 @@
-# include "../so_long.h"
+# include "../../so_long.h"
 
 int more_one( char *argv)
 {
@@ -6,11 +6,13 @@ int more_one( char *argv)
 	char buffer;
 	int count;
 	int  fd1;
+	int	verify;
 
 	fd1 = open(argv, O_RDONLY);
 		if (!fd1)
 			return 0;
 	count = 0;
+	verify = 0;
 	while (true)
 	{
 		size = read(fd1, &buffer, 1);
@@ -18,14 +20,15 @@ int more_one( char *argv)
 		{
 			count++;
 			if (count > 2)
-			{
-				print_s("Map inválido, deve ter apenas uma saida e um player");
-				return 0;
-			}
+				return (print_s("Map inválido, deve ter apenas uma saida e um player"));
 		}
+		if ((buffer == 'P' || buffer == 'E' || buffer == 'C') && size > 0)
+			verify++;
 		if (size == 0)
 			break;
 	}
+	if (verify != 3)
+		return (print_s("Deve possuir um player e saida e um coletavel no minimo"));
 	close(fd1);
 	return 1;
 }

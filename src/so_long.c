@@ -29,5 +29,7 @@ int main(int argc, char **argv)
 	map.valid_map = check_map_valid(&map, argc, argv);
 	if (map.valid_map > 0)
 		init_game(&map);
+	else
+		return 0;
 	return 1;
 }

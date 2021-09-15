@@ -14,6 +14,7 @@ int endgame(void *teste)
 
 int	key_hook(int keycode, t_map *map)
 {
+	
 	if (keycode == 'w')
 		move_up(map);
 	if (keycode == 'a')
@@ -22,7 +23,9 @@ int	key_hook(int keycode, t_map *map)
 		move_right(map);
 	if (keycode == 's')
 		move_down(map);
-	map->game->qnt_move++;
+	if(keycode == 65307)
+		endgame(map);
+	print_steps(map);
 	return (keycode);
 }
 

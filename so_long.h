@@ -6,9 +6,9 @@
 #include <stdlib.h>
 # include <stdbool.h>
 # include <fcntl.h>
-# include "./utils/minilbx/mlx.h"
-# include "./utils/libft/libft.h"
-# include "./utils/gnl/get_next_line.h"
+# include "./src/utils/minilbx/mlx.h"
+# include "./src/utils/gnl/get_next_line.h"
+# include <limits.h>
 
 typedef  struct  	s_game
 {
@@ -47,7 +47,7 @@ typedef struct s_map
 
 int check_map_valid(t_map *map, int argc, char **argv);
 int init_game(t_map *map);
-void print_s(char *string);
+int print_s(char *string);
 int	check_extension(char *str, char *extension);
 char **check_number_map(t_map *map, char *argv);
 int print_map(t_map *map);
@@ -57,7 +57,12 @@ int move_left(t_map *map);
 int move_right(t_map *map);
 int move_down(t_map *map);
 void zero_move(t_map *map);
-void init_struct(t_program *program, t_map *map, t_game *game);
 void free_map(t_map *map);
-int endgame(void *banana);
+int endgame(void *teste);
+void free_mapvar(t_map *map, char **map_var);
+size_t	ft_strlcopy(char *dst, const char *src, size_t n);
+char	*ft_itoa(int n);
+void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_mem_set(void *str, int c, size_t n);
+void print_steps(t_map *map);
 #endif

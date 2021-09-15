@@ -8,11 +8,17 @@ int move_up(t_map *map)
 		return 0;
 	if (map->map_all[map->game->pos_line - 1][map->game->pos_col] == 'C')
 		map->game->qnt_collect--;
+	if (map->map_all[map->game->pos_line - 1][map->game->pos_col] == 'V')
+	{
+		print_s("Você atingiu um Vilão, Jogo Finalizado");
+		endgame(map);
+	}
 	if (map->map_all[map->game->pos_line - 1][map->game->pos_col] == 'E' && map->game->qnt_collect == 0)
 	{
 		endgame(map);
 		return 1;
 	}
+	map->game->qnt_move++;
 	map->map_all[map->game->pos_line][map->game->pos_col] = '0';
 	map->map_all[map->game->pos_line - 1][map->game->pos_col] = 'P';
 	map->game->move_up = 'w';
@@ -29,11 +35,17 @@ int move_left(t_map *map)
 		return 0;
 	if (map->map_all[map->game->pos_line][map->game->pos_col - 1] == 'C')
 		map->game->qnt_collect--;
+	if (map->map_all[map->game->pos_line][map->game->pos_col - 1] == 'V')
+	{
+		print_s("Você atingiu um Vilão, Jogo Finalizado");
+		endgame(map);
+	}
 	if (map->map_all[map->game->pos_line][map->game->pos_col - 1] == 'E' && map->game->qnt_collect == 0)
 	{
 		endgame(map);
 		return 1;
 	}
+	map->game->qnt_move++;
 	map->map_all[map->game->pos_line][map->game->pos_col] = '0';
 	map->map_all[map->game->pos_line][map->game->pos_col - 1] = 'P';
 
@@ -45,18 +57,23 @@ int move_left(t_map *map)
 
 int move_right(t_map *map)
 {
-	printf("colect = %d", map->game->qnt_collect);
 	if (map->map_all[map->game->pos_line][map->game->pos_col + 1] == '1')
 		return 0;
 	if (map->map_all[map->game->pos_line][map->game->pos_col + 1] == 'C')
 		map->game->qnt_collect--;
 	if (map->map_all[map->game->pos_line][map->game->pos_col + 1] == 'E' && map->game->qnt_collect > 0)
 		return 0;
+	if (map->map_all[map->game->pos_line][map->game->pos_col + 1] == 'V')
+	{
+		print_s("Você atingiu um Vilão, Jogo Finalizado");
+		endgame(map);
+	}
 	if (map->map_all[map->game->pos_line][map->game->pos_col + 1] == 'E' && map->game->qnt_collect == 0)
 	{
 		endgame(map);
-		return 1;
+		return print_s("Você atingiu um Vilão, Jogo Finalizado");
 	}
+	map->game->qnt_move++;
 	map->map_all[map->game->pos_line][map->game->pos_col] = '0';
 	map->map_all[map->game->pos_line][map->game->pos_col + 1] = 'P';
 
@@ -68,18 +85,23 @@ int move_right(t_map *map)
 
 int move_down(t_map *map)
 {
-	printf("colect = %d", map->game->qnt_collect);
 	if (map->map_all[map->game->pos_line + 1][map->game->pos_col] == '1')
 		return 0;
 	if (map->map_all[map->game->pos_line + 1][map->game->pos_col] == 'E' && map->game->qnt_collect > 0)
 		return 0;
 	if (map->map_all[map->game->pos_line + 1][map->game->pos_col] == 'C')
 		map->game->qnt_collect--;
+	if (map->map_all[map->game->pos_line + 1][map->game->pos_col] == 'V')
+	{
+		print_s("Você atingiu um Vilão, Jogo Finalizado");
+		endgame(map);
+	}
 	if (map->map_all[map->game->pos_line + 1][map->game->pos_col] == 'E' && map->game->qnt_collect == 0)
 	{
 		endgame(map);
 		return 1;
 	}
+	map->game->qnt_move++;
 	map->map_all[map->game->pos_line][map->game->pos_col] = '0';
 	map->map_all[map->game->pos_line + 1][map->game->pos_col] = 'P';
 
