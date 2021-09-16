@@ -8,8 +8,8 @@ PATH_OBJS = ./objs/
 MLX = $(PATH_MINILBX)libmlx.a
 NAME = so_long
 
-FILES = $(PATH_MAP)check_map.c $(PATH_MAP)map_utils.c \
-		$(PATH_SRC)utils.c $(PATH_SRC)so_long.c\
+FILES = $(PATH_MAP)check_map.c $(PATH_MAP)map_check_utils.c $(PATH_MAP)map_utils.c\
+		$(PATH_SRC)utils.c $(PATH_SRC)so_long.c \
 		$(PATH_SRC)utils_score.c $(PATH_GAME)init_game.c \
 		$(PATH_GAME)move.c $(PATH_GAME)print_map.c \
 		$(PATH_GNL)get_next_line.c $(PATH_GNL)get_next_line_utils.c \
@@ -36,6 +36,8 @@ $(PATH_OBJS)%.o:	$(PATH_SRC)%.c
 	@mkdir -p $(PATH_OBJS)utils/gnl
 	@mkdir -p $(PATH_OBJS)game
 	$(CC) $(CFLAGS) -I. -c $< -o $@
+
+bonus: all
 
 clean:
 	$(RM) $(PATH_OBJS)
